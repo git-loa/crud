@@ -14,6 +14,8 @@ media
 !.vscode/extensions.json 
 .history
 
+#Folders to ignore
+notes_img
 
 
 # Virtual Environment
