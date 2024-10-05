@@ -1,5 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1> Dashboard Page</h1>
+<h3> Welcome to the dashboard! {{user.username}}</h3>
+<hr>
+<a href="{%url 'create-record'%}" class="btn btn-outline-primary btn-sm">Create a record</a>
+<hr>
+
+<div class="table-responsive-lg">
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">Province</th>
+            <th scope="col">Country</th>
+            <th scope="col">Created</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% if records %}
+            {% for record in records %}
+                <tr>
+                    <th scope="row">{{record.id}}</th>
+                    <td>{{record.first_name}} {{record.last_name}}</td>
+                    <td>{{record.email}}</td>
+                    <td>{{record.phone}}</td>
+                    <td>{{record.address}}</td>
+                    <td>{{record.city}}</td>
+                    <td>{{record.province}}</td>
+                    <td>{{record.country}}</td>
+                    <td>{{record.creation_date}}</td>
+                    <td><a href="{% url 'view-record' record.id%}">view</a></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+</div>
 {% endblock content %}

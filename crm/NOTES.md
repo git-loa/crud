@@ -1,7 +1,7 @@
 **Date:2024-09-13**
 
 # Building a CRUD app
-We are going to buid an app using django. This up will perform some crud opearions. Here CRUD stands for:
+We are going to learn Django by buid an app. This app will perform some crud operations. Here CRUD stands for:
 1. Create:
 2. Read:
 3. Update:
@@ -88,7 +88,7 @@ Next, configure it in the settings.py files
 > STATICFILES_DIRS = [BASE_DIR/ 'static']
 
 
-*In production, there other way to do it*. 
+*In production, there other way to do it* We will come back to this. 
 
 #### Templates
 
@@ -173,10 +173,57 @@ class LoginForm(AuthenticationForm):
 ```
 
 
-### Authentication
+#### Authentication
+To authenticate a form, we need the following imports.
 ```python
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import auth
-
-
 ```
+
+### Models
+Django allows us to work with data, without having to change or upload files in the process. In Django, data is created in objects, called *Models*. These Models are actually tables in a database.
+
+All Models are described in a file called models.py in the *app* folder
+
+When a Model is describd in the models.py file, we must run the following commands to create the table in the database and migrate all to our django project:
+> python3 manage.py makemigrations Model_name
+
+> python3 manage.py migrate 
+
+We can view the sql commands using the following command:
+> py manage.py sqlmigrate members 0001
+
+##### Model registration
+After creating and migrating the model, we need to register it in admin.py in the correponding app:
+```python
+from .models import Record
+admin.site.register(Record)
+```
+
+  
+### How to query database:
+#### Query Set syntax
+![Queryset Image](notes_img/Querysets.png "Querysets Syntax")
+
+#### Query Set List
+![Queryset List](notes_img/QuerysetsList.png)
+
+
+### Dynamic content using Django tags -- Jinja: 
+
+There are a few kinds of delimiters. The default Jinja delimiters are configured as follows:
+- {% ... %} for  Statements
+- {{ ... }} for Expressions to print to the template output
+- {# ... #} for Comments not included in the template output
+
+
+See Django template documantation [https://docs.djangoproject.com/en/4.1/topics/templates/](https://docs.djangoproject.com/en/4.1/topics/templates/) or Use this resources [https://jinja.palletsprojects.com/en/3.1.x/templates/](https://jinja.palletsprojects.com/en/3.1.x/templates/)
+
+### Updating
+#### Dynamic url routing.
+This is done by changing the urls by passing dynamic values to the urls. Post fix the ***route_name/*** with "\<str:pk\>" as shown below:
+
+```python
+#passing dynamic data
+#pk below is the dynamic data to be passed
+path('route_name/<str:pk>', views.route_name, name='route_name'),

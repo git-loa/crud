@@ -1,5 +1,42 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h1> View record Page</h1>
+<div class="card">
+    <strong>{{record.last_name | upper}}, {{record.first_name}} </strong>
+    <div class="card-body">
+        <p><strong>ID:</strong> {{record.id}} </p>
+        <p><strong>Email:</strong> {{record.email}} </p>
+        <p><strong>Phone:</strong> {{record.phone}} </p>
+        <p><strong>Address:</strong> {{record.address}} </p>
+        <p><strong>City:</strong> {{record.city}} </p> 
+        <p><strong>Province:</strong> {{record.province}} </p>
+        <p><strong>Country:</strong> {{record.country}} </p>
+        <p><strong>Created:</strong> {{record.creation_date}} </p>
+    </div>
+</div>
+<a class="btn btn-secondary" href="{% url 'dashboard' %}">Return</a>
+&nbsp;
+<a class="btn btn-info" href="{% url 'update-record' record.id %}">Update record</a>
+&nbsp;
+<!-- Button HTML (to Trigger Modal) -->
+<a href="#myModal" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">Delete</a>
+ 
+  
+  <!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Are you sure?</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+          <p>Do you really want to delete the record for {{record.first_name}}? This process cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
+          <a  class="btn btn-danger" href="{% url 'delete-record' record.id %}">Confirm Delete</a>
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock content %}
